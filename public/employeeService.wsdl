@@ -1,0 +1,102 @@
+<definitions name="EmployeeService" targetNamespace="http://example.com/employees"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="http://example.com/employees">
+
+    <message name="getEmployeeRequest">
+        <part name="id" type="xsd:string"/>
+    </message>
+    <message name="getEmployeeResponse">
+        <part name="name" type="xsd:string"/>
+        <part name="position" type="xsd:string"/>
+    </message>
+
+    <message name="addEmployeeRequest">
+        <part name="name" type="xsd:string"/>
+        <part name="position" type="xsd:string"/>
+    </message>
+    <message name="addEmployeeResponse">
+        <part name="message" type="xsd:string"/>
+        <part name="id" type="xsd:string"/>
+    </message>
+
+    <message name="updateEmployeeRequest">
+        <part name="id" type="xsd:string"/>
+        <part name="name" type="xsd:string"/>
+        <part name="position" type="xsd:string"/>
+    </message>
+    <message name="updateEmployeeResponse">
+        <part name="message" type="xsd:string"/>
+    </message>
+
+    <message name="deleteEmployeeRequest">
+        <part name="id" type="xsd:string"/>
+    </message>
+    <message name="deleteEmployeeResponse">
+        <part name="message" type="xsd:string"/>
+    </message>
+
+    <message name="getAllEmployeesRequest"/>
+    <message name="getAllEmployeesResponse">
+        <part name="employees" type="xsd:string"/>
+    </message>
+
+    <portType name="EmployeePort">
+        <operation name="getEmployee">
+            <input message="tns:getEmployeeRequest"/>
+            <output message="tns:getEmployeeResponse"/>
+        </operation>
+        <operation name="addEmployee">
+            <input message="tns:addEmployeeRequest"/>
+            <output message="tns:addEmployeeResponse"/>
+        </operation>
+        <operation name="updateEmployee">
+            <input message="tns:updateEmployeeRequest"/>
+            <output message="tns:updateEmployeeResponse"/>
+        </operation>
+        <operation name="deleteEmployee">
+            <input message="tns:deleteEmployeeRequest"/>
+            <output message="tns:deleteEmployeeResponse"/>
+        </operation>
+        <operation name="getAllEmployees">
+            <input message="tns:getAllEmployeesRequest"/>
+            <output message="tns:getAllEmployeesResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="EmployeeBinding" type="tns:EmployeePort">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getEmployee">
+            <soap:operation soapAction="getEmployee"/>
+            <input><soap:body use="literal"/></input>
+            <output><soap:body use="literal"/></output>
+        </operation>
+        <operation name="addEmployee">
+            <soap:operation soapAction="addEmployee"/>
+            <input><soap:body use="literal"/></input>
+            <output><soap:body use="literal"/></output>
+        </operation>
+        <operation name="updateEmployee">
+            <soap:operation soapAction="updateEmployee"/>
+            <input><soap:body use="literal"/></input>
+            <output><soap:body use="literal"/></output>
+        </operation>
+        <operation name="deleteEmployee">
+            <soap:operation soapAction="deleteEmployee"/>
+            <input><soap:body use="literal"/></input>
+            <output><soap:body use="literal"/></output>
+        </operation>
+        <operation name="getAllEmployees">
+            <soap:operation soapAction="getAllEmployees"/>
+            <input><soap:body use="literal"/></input>
+            <output><soap:body use="literal"/></output>
+        </operation>
+    </binding>
+
+    <service name="EmployeeService">
+        <port name="EmployeePort" binding="tns:EmployeeBinding">
+            <soap:address location="http://localhost:5000/employeeService"/>
+        </port>
+    </service>
+</definitions>
